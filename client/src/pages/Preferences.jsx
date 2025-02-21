@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { ChevronUp  ,CircleCheckBig } from 'lucide-react';
 import { Button } from '@mantine/core';
-import './preference.css'
 function Preferences() {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const categories = [

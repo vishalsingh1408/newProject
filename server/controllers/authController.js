@@ -30,8 +30,11 @@ export const login = async (req, res) => {
       httpOnly: true,
     });
 
+    console.log(user);
+    
+
     res.status(200).json({
-      token,
+      Preferences:user.preferences,
       message: 'login successfull',
     });
   } catch (error) {}
@@ -72,5 +75,5 @@ export const register = async (req, res) => {
       data: newUser,
       message: 'Successfully registered',
     });
-  } catch (error) {}
+  } catch (error) {}db
 };

@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import Navbar from './components/Navbar';
-import { Routes, Route } from 'react-router-dom';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import '@mantine/core/styles.css';
-import {Toaster} from 'sonner'
-import Preferences from './pages/preferences';
-import { fetchProduct } from './redux/slice/productSlice';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import Navbar from "./components/Navbar";
+import { Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import "@mantine/core/styles.css";
+import { Toaster } from "sonner";
+import Preferences from "./pages/preferences";
+import { fetchProduct } from "./redux/slice/productSlice";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import Homepage from "./pages/Homepage";
+import ProtectedRoutes from "./components/ProtectedRoutes";
 function App() {
-
-
   return (
     <div>
-      
       <Navbar />
 
+      <Toaster />
 
-<Toaster/>
-      <Preferences />
       <Routes>
+        <Route element = {<ProtectedRoutes/>}/> 
+        <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
