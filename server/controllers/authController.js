@@ -25,16 +25,14 @@ export const login = async (req, res) => {
       'hello_this_string',
       { expiresIn: '1d' }
     );
+    console.log(user)
 
     res.cookie('token', token, {
       httpOnly: true,
     });
 
-    console.log(user);
-    
-
     res.status(200).json({
-      Preferences:user.preferences,
+     preferences : user.preferences,
       message: 'login successfull',
     });
   } catch (error) {}
@@ -75,5 +73,5 @@ export const register = async (req, res) => {
       data: newUser,
       message: 'Successfully registered',
     });
-  } catch (error) {}db
+  } catch (error) {}
 };

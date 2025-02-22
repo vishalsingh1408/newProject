@@ -1,32 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { motion } from "motion/react";
-import { Mail, Lock, Eye, EyeOff } from "lucide-react";
-import { Link, Navigate } from "react-router-dom";
-import { Button } from "@mantine/core";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "./../redux/slice/authSlice";
-import { z } from "zod";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { motion } from 'motion/react';
+import { Mail, Lock, Eye, EyeOff, Cookie } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Button } from '@mantine/core';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from './../redux/slice/authSlice';
+
+import { z } from 'zod';
+import { useNavigate } from 'react-router-dom';
 function Login() {
   const [isEyeClick, setIsEyeClick] = useState(false);
-  const { authenticated } = useSelector((state) => state.auth);
-  console.log(authenticated);
+  const { authenticated, preferences } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    if (authenticated) {
-      navigate("/");
+    if (authenticated && preferences.length > 0) {
+      navigate('/');
+    } else if (authenticated && preferences.length <= 0) {
+      navigate('/preferences');
     }
   }, [authenticated]);
+
   const LoginSchema = z.object({
     email: z
       .string()
-      .min(1, { message: "This field has to be filled." })
-      .email("This is not a valid email."),
-    password: z.string().min(1, { messsage: "Password is required" }),
+      .min(1, { message: 'This field has to be filled.' })
+      .email('This is not a valid email.'),
+    password: z.string().min(1, { messsage: 'Password is required' }),
   });
 
   const {
@@ -37,14 +40,14 @@ function Login() {
     resolver: zodResolver(LoginSchema),
   });
 
-  console.log(register("email"));
+  console.log(register('email'));
   console.log(errors);
 
   const handleEyeClick = () => {
     setIsEyeClick(!isEyeClick);
   };
   const onSubmit = (data) => {
-      dispatch(login(data));
+    dispatch(login(data));
   };
 
   return (
@@ -63,7 +66,7 @@ function Login() {
               type="email"
               className="focus:outline-none w-full "
               placeholder="Enter Email..."
-              {...register("email")}
+              {...register('email')}
             />
           </div>
           {errors.email && (
@@ -76,10 +79,10 @@ function Login() {
             </div>
 
             <input
-              type={isEyeClick ? "text" : "password"}
+              type={isEyeClick ? 'text' : 'password'}
               className="focus:outline-none w-full"
               placeholder="Enter Password..."
-              {...register("password")}
+              {...register('password')}
             />
           </div>
 
@@ -88,7 +91,7 @@ function Login() {
           </Button>
 
           <p className="text-center text-gray-800">
-            Don't have account?{" "}
+            Don't have account?{' '}
             <Link to="/register" className="text-sky-500 hover:underline">
               Register
             </Link>

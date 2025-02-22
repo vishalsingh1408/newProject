@@ -1,29 +1,38 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "./components/Navbar";
-import { Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import "@mantine/core/styles.css";
-import { Toaster } from "sonner";
-import Preferences from "./pages/preferences";
-import { fetchProduct } from "./redux/slice/productSlice";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import Homepage from "./pages/Homepage";
-import ProtectedRoutes from "./components/ProtectedRoutes";
+import React, { useEffect, useState, lazy, Suspense } from 'react';
+import Navbar from './components/Navbar';
+import { Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import '@mantine/core/styles.css';
+import { Toaster } from 'sonner';
+import Preferences from './pages/preferences';
+import { fetchProduct } from './redux/slice/productSlice';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+// import Homepage from './pages/Homepage';
+const Homepage = lazy(() => 
+  import('./pages/Homepage'));
+
+import ProtectedRoutes from './components/ProtectedRoutes';
+import LoadingSpinner from './components/LoadingSpinner';
+console.log(Homepage)
 function App() {
   return (
     <div>
       <Navbar />
 
       <Toaster />
+      <Suspense fallback={<LoadingSpinner/>}>
+        <Routes>
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/preferences" element={<Preferences />} />
+          </Route>
 
-      <Routes>
-        <Route element = {<ProtectedRoutes/>}/> 
-        <Route path="/" element={<Homepage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 }

@@ -1,15 +1,14 @@
-import React from 'react'
-import { getCookie } from '../utils/Utils'
+import React from 'react';
+import { getCookie } from '../utils/Utils';
 import { Navigate, Outlet } from 'react-router-dom';
 function ProtectedRoutes() {
- const isAuthenticated =getCookie('isAuthenticated');
- if(!isAuthenticated){
-    return <Navigate to = '/'/>    
- }
+  const isAuthenticated = getCookie('isAuthenticated');
 
- return(
-    <Outlet/>
- )
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+
+  return <Outlet/>
 }
 
-export default ProtectedRoutes
+export default ProtectedRoutes;
