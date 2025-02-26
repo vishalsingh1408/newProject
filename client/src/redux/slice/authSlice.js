@@ -8,7 +8,7 @@ const initialState = {
   authenticated:  getCookie('isAuthenticated') || false,
   name: getCookie('name' )|| null,
   id: getCookie('id') || null,
-  preferences: [],
+  preferences: JSON.parse(localStorage.getItem('preferences')) || [],
 };
 
 export const SignUp = createAsyncThunk(
@@ -83,13 +83,17 @@ const authSlice = createSlice({
         state.name = action.payload.name;
         state.id = action.payload.id;
         setCookie('isAuthenticated', action.payload.authenticated);
+        setCookie('email', action.payload.email);
         setCookie('name', action.payload.name);
         setCookie('id', action.payload.id);
         state.preferences = action.payload.preferences;
+        localStorage.setItem('preferences', JSON.stringify(action.payload.preferences))
         console.log(action.payload);
         toast.success(action.payload.message);
       })
       .addCase(login.rejected, (state, action) => {
+        console.log(action.payload)
+        toast.error(action.payload.response.data.message)
         state.loading = false;
       });
   },

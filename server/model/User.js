@@ -10,8 +10,10 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
   },
-  preferences: [{ String }],
-  bookmarks: [{ String }],
+  preferences: [String],
+  bookmarks: [{Object}],
+  readingHistory:[{Object}],
+
 });
 
 const User = mongoose.model('User', UserSchema)
