@@ -18,7 +18,7 @@ import LoadingSpinner from "./components/LoadingSpinner";
 import PreferenceProtectRoute from "./components/PreferenceProtectRoutes";
 import Footer from './components/Footer';
 import About from './pages/AboutPage';
-console.log(Homepage);
+// console.log(Homepage);
 function App() {
   return (
     <div>
