@@ -1,4 +1,4 @@
-import { removeCookie, setCookie } from '../../utils/utils';
+import { removeCookie , setCookie } from '../../utils/utils';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getCookie } from '../../utils/utils';
