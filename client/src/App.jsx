@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import "@mantine/core/styles.css";
 import { Toaster } from "sonner";
-import Preferences from "./pages/preferences";
+import Preferences from "./pages/Preferences.jsx";
 import { fetchProduct } from "./redux/slice/productSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
